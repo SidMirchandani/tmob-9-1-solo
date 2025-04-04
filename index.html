@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>The Mystery of Brahman - Solo Activity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --blue1: #00b0cf;
+        --blue2: #6667f4;
+        --food-color1: #8B4513;
+        --food-color2: #A0522D;
+        --life-color1: #66BB6A;
+        --life-color2: #43A047;
+        --mind-color1: #7E57C2;
+        --mind-color2: #5E35B1;
+        --reason-color1: #42A5F5;
+        --reason-color2: #1E88E5;
+        --joy-color1: #FFD700;
+        --joy-color2: #FFA000;
+        --blue-light-10: rgba(0, 176, 207, 0.1);
+        --blue-dark-10: rgba(102, 103, 244, 0.1);
+        --correct: #a4f3a4;
+        --incorrect: #f3a4a4;
+      }
+      
+      /* Ensure all buttons use Poppins */
+      button {
+        font-family: 'Poppins', sans-serif;
+      }
+      
+      body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: white;
+        position: relative;
+      }
+      
+      .header {
+        background: linear-gradient(90deg, var(--blue1), var(--blue2));
+        color: white;
+        padding: 70px 20px;
+        text-align: center;
+        font-weight: 900;
+        font-size: 3.5rem;
+        letter-spacing: 2px;
+        line-height: 1.1;
+        position: relative;
+        background-image: 
+          radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+          linear-gradient(90deg, var(--blue1), var(--blue2));
+        background-size: 10px 10px, cover;
+      }
+      
+      .main {
+        background: white;
+        position: relative;
+        padding: 30px 20px;
+        z-index: 0;
+        overflow: hidden;
+      }
+      
+      .main::before {
+        content: '';
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #a1daff 0%, transparent 50%, transparent 100%);
+        z-index: -1;
+        top: -300px;
+        left: -300px;
+      }
+      
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .section-title {
+        font-weight: 900;
+        font-size: 1.5rem;
+        color: black;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .section-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        margin: 10px auto;
+        background: linear-gradient(90deg, var(--blue1), var(--blue2));
+        border-radius: 2px;
+      }
+      
+      .game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      
+      .stats-container {
+        background: linear-gradient(90deg, var(--blue-light-10), var(--blue-dark-10));
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-around;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      
+      .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      
+      .stat-label {
+        font-size: 0.8rem;
+        color: #666;
+      }
+      
+      .meditation-container {
+        width: 100%;
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .meditation-button {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(145deg, var(--blue1), var(--blue2));
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 6px 15px rgba(0, 176, 207, 0.3);
+        user-select: none;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .meditation-button:active {
+        transform: scale(0.95);
+        box-shadow: 0 3px 10px rgba(0, 176, 207, 0.2);
+      }
+      
+      .meditation-button::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .meditation-button:active::after {
+        opacity: 0.5;
+      }
+      
+      .stages-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .stage {
+        background: linear-gradient(90deg, var(--blue-light-10), var(--blue-dark-10));
+        border-radius: 10px;
+        padding: 20px;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      
+      .stage-food {
+        background: linear-gradient(90deg, rgba(139, 69, 19, 0.1), rgba(160, 82, 45, 0.1));
+      }
+      
+      .stage-life {
+        background: linear-gradient(90deg, rgba(102, 187, 106, 0.1), rgba(67, 160, 71, 0.1));
+        opacity: 0.6;
+      }
+      
+      .stage-mind {
+        background: linear-gradient(90deg, rgba(126, 87, 194, 0.1), rgba(94, 53, 177, 0.1));
+        opacity: 0.6;
+      }
+      
+      .stage-reason {
+        background: linear-gradient(90deg, rgba(66, 165, 245, 0.1), rgba(30, 136, 229, 0.1));
+        opacity: 0.6;
+      }
+      
+      .stage-joy {
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 160, 0, 0.1));
+        opacity: 0.6;
+      }
+      
+      .stage-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      .stage-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .stage-emoji {
+        display: inline-block;
+        font-size: 1.4rem;
+      }
+      
+      .stage-unlock-message {
+        font-style: italic;
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+      
+      .generators-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      
+      .generator {
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .generator:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      
+      .generator:active {
+        transform: scale(0.98);
+      }
+      
+      .generator-emoji {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+      }
+      
+      .generator-name {
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        text-align: center;
+      }
+      
+      .generator-cost {
+        font-size: 0.7rem;
+        color: #666;
+      }
+      
+      .generator-yields {
+        font-size: 0.7rem;
+        color: #666;
+        margin-top: 2px;
+      }
+      
+      .upgrades-container {
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      
+      .upgrade {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+      
+      .upgrade:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      
+      .upgrade:active {
+        transform: scale(0.98);
+      }
+      
+      .upgrade-name {
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        text-align: center;
+      }
+      
+      .upgrade-desc {
+        font-size: 0.7rem;
+        color: #666;
+        text-align: center;
+      }
+      
+      .upgrade-cost {
+        font-size: 0.7rem;
+        color: #666;
+        margin-top: 5px;
+      }
+      
+      .upgrade-yields {
+        font-size: 0.7rem;
+        color: #666;
+        margin-top: 2px;
+      }
+      
+      /* Notification */
+      .notification {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: white;
+        padding: 15px 25px;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        z-index: 1000;
+      }
+      
+      .notification.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+      
+      .notification-icon {
+        font-size: 1.2rem;
+      }
+      
+      .notification-text {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      
+      /* Tooltip */
+      .tooltip {
+        position: absolute;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 100;
+        font-size: 0.8rem;
+        max-width: 250px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+      }
+      
+      .tooltip.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .tooltip-title {
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      
+      .tooltip-desc {
+        font-size: 0.75rem;
+        color: #666;
+      }
+      
+      /* Advance Stage Button */
+      #advance-stage-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+      
+      #advance-stage-button {
+        background: linear-gradient(145deg, var(--blue1), var(--blue2));
+        border: none;
+        color: white;
+        font-size: 1rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      #advance-stage-button:hover {
+        transform: translateY(-2px);
+      }
+      
+      #advance-stage-button:active {
+        transform: scale(0.98);
+      }
+      
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .header {
+          font-size: 2.5rem;
+          padding: 50px 20px;
+        }
+        
+        .generators-container,
+        .upgrades-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .meditation-button {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .header {
+          font-size: 2rem;
+          padding: 40px 20px;
+        }
+        
+        .generators-container,
+        .upgrades-container {
+          grid-template-columns: 1fr;
+        }
+        
+        .meditation-button {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      THE BRAHMAN<br>SOLO ACTIVITY
+    </div>
+
+    <div class="main">
+      <div class="content">
+        <div class="section-title">THE FIVE KOSHAS</div>
+        
+        <div class="game-container">
+          <!-- Stats Container -->
+          <div class="stats-container">
+            <div class="stat">
+              <div class="stat-value" id="aura-value">0</div>
+              <div class="stat-label">AURA</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="aura-per-sec">0.0</div>
+              <div class="stat-label">AURA per second</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="aura-per-click">1.0</div>
+              <div class="stat-label">AURA per click</div>
+            </div>
+          </div>
+          
+          <!-- Meditation Button (Click) -->
+          <div class="meditation-container">
+            <div class="meditation-button" id="meditation-button">
+              MEDITATE
+            </div>
+          </div>
+          
+          <!-- Stages Container (only current stage is visible) -->
+          <div class="stages-container">
+            <!-- Food Stage (Annamaya) -->
+            <div class="stage stage-food" id="stage-food">
+              <div class="stage-header">
+                <div class="stage-title"><span class="stage-emoji">🍚</span> STAGE 1: FOOD (Annamaya)</div>
+              </div>
+              <div class="stage-unlock-message">
+                "From food all beings come... but is food the root?"
+              </div>
+              
+              <div class="generators-container" id="food-generators">
+                <!-- Food generators loaded dynamically -->
+              </div>
+              
+              <div class="upgrades-container" id="food-upgrades">
+                <!-- Food upgrades loaded dynamically -->
+              </div>
+            </div>
+            
+            <!-- Life Stage (Pranamaya) -->
+            <div class="stage stage-life" id="stage-life">
+              <div class="stage-header">
+                <div class="stage-title"><span class="stage-emoji">💨</span> STAGE 2: LIFE (Pranamaya)</div>
+              </div>
+              <div class="stage-unlock-message">
+                "Food feeds the body... but life sustains it."
+              </div>
+              
+              <div class="generators-container" id="life-generators">
+                <!-- Life generators loaded dynamically -->
+              </div>
+              
+              <div class="upgrades-container" id="life-upgrades">
+                <!-- Life upgrades loaded dynamically -->
+              </div>
+            </div>
+            
+            <!-- Mind Stage (Manomaya) -->
+            <div class="stage stage-mind" id="stage-mind">
+              <div class="stage-header">
+                <div class="stage-title"><span class="stage-emoji">🧠</span> STAGE 3: MIND (Manomaya)</div>
+              </div>
+              <div class="stage-unlock-message">
+                "Life flows through us... but the mind guides it."
+              </div>
+              
+              <div class="generators-container" id="mind-generators">
+                <!-- Mind generators loaded dynamically -->
+              </div>
+              
+              <div class="upgrades-container" id="mind-upgrades">
+                <!-- Mind upgrades loaded dynamically -->
+              </div>
+            </div>
+            
+            <!-- Reason Stage (Vijnanamaya) -->
+            <div class="stage stage-reason" id="stage-reason">
+              <div class="stage-header">
+                <div class="stage-title"><span class="stage-emoji">🧠‍🧠</span> STAGE 4: REASON (Vijnanamaya)</div>
+              </div>
+              <div class="stage-unlock-message">
+                "The mind perceives... but reason reveals."
+              </div>
+              
+              <div class="generators-container" id="reason-generators">
+                <!-- Reason generators loaded dynamically -->
+              </div>
+              
+              <div class="upgrades-container" id="reason-upgrades">
+                <!-- Reason upgrades loaded dynamically -->
+              </div>
+            </div>
+            
+            <!-- Joy Stage (Anandamaya) -->
+            <div class="stage stage-joy" id="stage-joy">
+              <div class="stage-header">
+                <div class="stage-title"><span class="stage-emoji">🪷</span> STAGE 5: JOY (Anandamaya)</div>
+              </div>
+              <div class="stage-unlock-message">
+                "From joy all beings come... by joy they all live... to joy they all return."
+              </div>
+              
+              <div class="generators-container" id="joy-generators">
+                <!-- Joy generators loaded dynamically -->
+              </div>
+              
+              <div class="upgrades-container" id="joy-upgrades">
+                <!-- Joy upgrades loaded dynamically -->
+              </div>
+            </div>
+          </div>
+          
+          <!-- Advance Stage Button -->
+          <div id="advance-stage-container"></div>
+          
+          <!-- Notification -->
+          <div class="notification" id="notification">
+            <div class="notification-icon">🎉</div>
+            <div class="notification-text">Notification message</div>
+          </div>
+          
+          <!-- Tooltip (for future use) -->
+          <div class="tooltip" id="tooltip">
+            <div class="tooltip-title">Tooltip Title</div>
+            <div class="tooltip-desc">Description goes here</div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ------------------
+      // STAGE ORDER & ADVANCE REQUIREMENTS
+      // ------------------
+      const stageOrder = ['food', 'life', 'mind', 'reason', 'joy'];
+      const advanceRequirements = {
+        food: { aura: 100 },
+        life: { aura: 500 },
+        mind: { aura: 5000 },
+        reason: { aura: 50000 },
+        // Joy is final stage; no advance requirement.
+        joy: { aura: Infinity }
+      };
+
+      // ------------------
+      // GAME STATE & DATA
+      // ------------------
+      const gameState = {
+        aura: 0,
+        auraPerSecond: 0,
+        auraPerClick: 1,
+        lastUpdate: Date.now(),
+        clickMultiplier: 1,
+        passiveMultiplier: 1,
+        // Stage multipliers:
+        foodMultiplier: 1,
+        lifeMultiplier: 1,
+        mindMultiplier: 1,
+        reasonMultiplier: 1,
+        joyMultiplier: 1,
+        totalClicks: 0,
+        currentStage: 'food'
+      };
+
+      const gameData = {
+        // Food Stage (Annamaya)
+        food: {
+          generators: [
+            {
+              id: 'grain-offering',
+              name: 'Grain Offering',
+              emoji: '🍚',
+              desc: 'A simple offering of grain to honor the source of all nourishment.',
+              baseCost: 10,
+              baseProduction: 0.1,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'cooked-meal',
+              name: 'Cooked Meal Ritual',
+              emoji: '🍲',
+              desc: 'A ritual where food is prepared with sacred intentions.',
+              baseCost: 100,
+              baseProduction: 0.5,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'sacred-cow',
+              name: 'Sacred Cow Farm',
+              emoji: '🐄',
+              desc: 'A place where cows are honored for the nourishment they provide.',
+              baseCost: 1100,
+              baseProduction: 4,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            }
+          ],
+          upgrades: [
+            {
+              id: 'offerings-blessed',
+              name: 'Offerings Blessed',
+              desc: '2x production from food items',
+              yield: '2x production from food items',
+              cost: 500,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.foodMultiplier *= 2;
+                updateProduction();
+                showNotification('🍚', 'Your food offerings have been blessed!');
+              }
+            },
+            {
+              id: 'varunas-whisper',
+              name: "Varuna's Whisper",
+              desc: '+1 AURA per click',
+              yield: '+1 AURA per click',
+              cost: 750,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.auraPerClick += 1;
+                updateStats();
+                showNotification('💧', 'Varuna whispers, empowering your meditation!');
+              }
+            },
+            {
+              id: 'golden-plate',
+              name: 'Golden Plate',
+              desc: 'Clicks give more based on time meditated',
+              yield: '+0.5 click multiplier',
+              cost: 2000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.clickMultiplier += 0.5;
+                updateStats();
+                showNotification('✨', 'Your golden plate glows with accumulated wisdom!');
+              }
+            }
+          ]
+        },
+        
+        // Life Stage (Pranamaya)
+        life: {
+          generators: [
+            {
+              id: 'breathwork-ritual',
+              name: 'Breathwork Ritual',
+              emoji: '💨',
+              desc: 'A practice that harnesses the power of breath.',
+              baseCost: 50,
+              baseProduction: 1,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'vital-energy-flame',
+              name: 'Vital Energy Flame',
+              emoji: '🔥',
+              desc: 'A flame that embodies the life force within.',
+              baseCost: 500,
+              baseProduction: 5,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'ayurvedic-healer',
+              name: 'Ayurvedic Healer',
+              emoji: '🌿',
+              desc: 'A healer who channels ancient energy to sustain life.',
+              baseCost: 6000,
+              baseProduction: 30,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            }
+          ],
+          upgrades: [
+            {
+              id: 'breath-of-life',
+              name: 'Breath of Life',
+              desc: 'Doubles production from life generators',
+              yield: '2x production from life generators',
+              cost: 2000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.lifeMultiplier *= 2;
+                updateProduction();
+                showNotification('💨', 'The breath of life empowers your generators!');
+              }
+            },
+            {
+              id: 'chakra-alignment',
+              name: 'Chakra Alignment',
+              desc: 'Increases AURA per second',
+              yield: 'Boosts AURA per second',
+              cost: 3000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.passiveMultiplier += 0.5;
+                updateProduction();
+                showNotification('🌀', 'Your chakras align, boosting your energy flow!');
+              }
+            },
+            {
+              id: 'life-force-amplifier',
+              name: 'Life Force Amplifier',
+              desc: 'Boosts active meditation gains',
+              yield: '+2 AURA per click',
+              cost: 5000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.auraPerClick += 2;
+                updateStats();
+                showNotification('⚡', 'Your life force is amplified!');
+              }
+            }
+          ]
+        },
+        
+        // Mind Stage (Manomaya)
+        mind: {
+          generators: [
+            {
+              id: 'focused-meditation',
+              name: 'Focused Meditation',
+              emoji: '🧘‍♂️',
+              desc: 'Deep concentration to harness inner strength.',
+              baseCost: 100,
+              baseProduction: 2,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'scripture-study',
+              name: 'Scripture Study',
+              emoji: '📖',
+              desc: 'Studying sacred texts to deepen understanding.',
+              baseCost: 1200,
+              baseProduction: 10,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'vedic-chant-loop',
+              name: 'Vedic Chant Loop',
+              emoji: '🎵',
+              desc: 'A continuous loop of chants that elevates the mind.',
+              baseCost: 15000,
+              baseProduction: 40,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            }
+          ],
+          upgrades: [
+            {
+              id: 'stillness-of-mind',
+              name: 'Stillness of the Mind',
+              desc: 'Increases AURA per click significantly',
+              yield: 'Increases AURA per click significantly',
+              cost: 5000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.clickMultiplier += 1;
+                updateStats();
+                showNotification('🧘', 'Your mind finds stillness and power!');
+              }
+            },
+            {
+              id: 'clarity-booster',
+              name: 'Clarity Booster',
+              desc: 'Boosts overall generator production',
+              yield: '1.5x overall generator production',
+              cost: 7500,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.mindMultiplier *= 1.5;
+                updateProduction();
+                showNotification('🔮', 'Your thoughts become crystal clear!');
+              }
+            },
+            {
+              id: 'sacred-soundtrack',
+              name: 'Sacred Soundtrack',
+              desc: 'Adds a soothing bonus to passive AURA generation',
+              yield: '+0.5 passive AURA generation',
+              cost: 10000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.passiveMultiplier += 0.5;
+                updateProduction();
+                showNotification('🎶', 'The sacred sounds uplift your spirit!');
+              }
+            }
+          ]
+        },
+        
+        // Reason Stage (Vijnanamaya)
+        reason: {
+          generators: [
+            {
+              id: 'philosophy-study',
+              name: 'Philosophy Study Group',
+              emoji: '💭',
+              desc: 'Group discussions to deepen philosophical insight.',
+              baseCost: 500,
+              baseProduction: 5,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'metaphysical-lab',
+              name: 'Metaphysical Lab',
+              emoji: '🔬',
+              desc: 'A lab where abstract ideas take shape.',
+              baseCost: 7000,
+              baseProduction: 25,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'meditation-logic-merge',
+              name: 'Meditation + Logic Merge',
+              emoji: '🤔',
+              desc: 'The union of meditation and reasoning for higher wisdom.',
+              baseCost: 50000,
+              baseProduction: 100,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            }
+          ],
+          upgrades: [
+            {
+              id: 'sanskrit-syntax-boost',
+              name: 'Sanskrit Syntax Boost',
+              desc: 'Enhances generator production through refined thought',
+              yield: '1.5x generator production',
+              cost: 20000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.reasonMultiplier *= 1.5;
+                updateProduction();
+                showNotification('📜', 'The ancient language empowers your logic!');
+              }
+            },
+            {
+              id: 'discipline-of-thought',
+              name: 'Discipline of Thought',
+              desc: 'Exponentially increases AURA per click',
+              yield: '2x AURA per click',
+              cost: 30000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.auraPerClick *= 2;
+                updateStats();
+                showNotification('🧩', 'Your disciplined thought unlocks new insights!');
+              }
+            },
+            {
+              id: 'cosmic-logic-engine',
+              name: 'Cosmic Logic Engine',
+              desc: 'Unlocks a bonus to all generators (prestige effect)',
+              yield: '+1 passive AURA generation',
+              cost: 50000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.passiveMultiplier += 1;
+                updateProduction();
+                showNotification('🚀', 'Cosmic logic flows through you!');
+              }
+            }
+          ]
+        },
+        
+        // Joy Stage (Anandamaya)
+        joy: {
+          generators: [
+            {
+              id: 'bliss-ray-collector',
+              name: 'Bliss Ray Collector',
+              emoji: '🌞',
+              desc: 'Collects the radiant rays of bliss.',
+              baseCost: 1000,
+              baseProduction: 10,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'oneness-portal',
+              name: 'Universal Oneness Portal',
+              emoji: '🕉️',
+              desc: 'A gateway to the universal energy of joy.',
+              baseCost: 12000,
+              baseProduction: 50,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            },
+            {
+              id: 'joyful-temple',
+              name: 'Joyful Presence Temple',
+              emoji: '💓',
+              desc: 'A temple that exudes the pure joy of existence.',
+              baseCost: 100000,
+              baseProduction: 200,
+              costMultiplier: 1.15,
+              count: 0,
+              unlocked: true
+            }
+          ],
+          upgrades: [
+            {
+              id: 'laughter-of-brahman',
+              name: 'Laughter of Brahman',
+              desc: 'Doubles production from all generators',
+              yield: 'Doubles production from all generators',
+              cost: 50000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.foodMultiplier *= 2;
+                gameState.lifeMultiplier *= 2;
+                gameState.mindMultiplier *= 2;
+                gameState.reasonMultiplier *= 2;
+                gameState.joyMultiplier *= 2;
+                updateProduction();
+                showNotification('😂', 'The laughter of Brahman fills the universe!');
+              }
+            },
+            {
+              id: 'infinite-light',
+              name: 'Infinite Light',
+              desc: 'Adds a bonus to passive AURA generation',
+              yield: '+1 passive AURA generation',
+              cost: 75000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.passiveMultiplier += 1;
+                updateProduction();
+                showNotification('💡', 'Infinite light shines upon you!');
+              }
+            },
+            {
+              id: 'moksha-engine',
+              name: 'Moksha Engine',
+              desc: 'Automates all production in a state of bliss',
+              yield: '+2 passive AURA generation',
+              cost: 150000,
+              purchased: false,
+              unlocked: true,
+              onPurchase: () => {
+                gameState.passiveMultiplier += 2;
+                updateProduction();
+                showNotification('🚀', 'Moksha achieved! Your spirit soars!');
+              }
+            }
+          ]
+        }
+      };
+
+      // ------------------
+      // CORE FUNCTIONS
+      // ------------------
+      function updateStats() {
+        document.getElementById('aura-value').textContent = gameState.aura.toFixed(1);
+        document.getElementById('aura-per-sec').textContent = gameState.auraPerSecond.toFixed(1);
+        document.getElementById('aura-per-click').textContent = (gameState.auraPerClick * gameState.clickMultiplier).toFixed(1);
+        updateAdvanceButton();
+      }
+
+      function updateProduction() {
+        let total = 0;
+        total += gameData.food.generators.reduce((acc, gen) => acc + (gen.baseProduction * gen.count), 0) * gameState.foodMultiplier;
+        total += gameData.life.generators.reduce((acc, gen) => acc + (gen.baseProduction * gen.count), 0) * gameState.lifeMultiplier;
+        total += gameData.mind.generators.reduce((acc, gen) => acc + (gen.baseProduction * gen.count), 0) * gameState.mindMultiplier;
+        total += gameData.reason.generators.reduce((acc, gen) => acc + (gen.baseProduction * gen.count), 0) * gameState.reasonMultiplier;
+        total += gameData.joy.generators.reduce((acc, gen) => acc + (gen.baseProduction * gen.count), 0) * gameState.joyMultiplier;
+        gameState.auraPerSecond = total * gameState.passiveMultiplier;
+        updateStats();
+      }
+
+      function showNotification(icon, message) {
+        const notif = document.getElementById('notification');
+        notif.querySelector('.notification-icon').textContent = icon;
+        notif.querySelector('.notification-text').textContent = message;
+        notif.classList.add('show');
+        setTimeout(() => {
+          notif.classList.remove('show');
+        }, 3000);
+      }
+
+      // ------------------
+      // UI RENDERING
+      // ------------------
+      function createGeneratorElement(stage, gen) {
+        const container = document.createElement('div');
+        container.className = 'generator';
+        container.innerHTML = `
+          <div class="generator-emoji">${gen.emoji}</div>
+          <div class="generator-name">${gen.name}</div>
+          <div class="generator-cost">Cost: ${gen.baseCost.toFixed(0)}</div>
+          <div class="generator-yields">Yields: ${gen.baseProduction.toFixed(1)} AURA/sec</div>
+          <div class="generator-count">${gen.count}</div>
+        `;
+        container.addEventListener('click', () => {
+          const cost = gen.baseCost * Math.pow(gen.costMultiplier, gen.count);
+          if (gameState.aura >= cost) {
+            gameState.aura -= cost;
+            gen.count++;
+            updateProduction();
+            updateStats();
+            container.querySelector('.generator-count').textContent = gen.count;
+            container.querySelector('.generator-cost').textContent = 'Cost: ' + (gen.baseCost * Math.pow(gen.costMultiplier, gen.count)).toFixed(0);
+          }
+        });
+        return container;
+      }
+
+      function createUpgradeElement(stage, upg) {
+        const container = document.createElement('div');
+        container.className = 'upgrade';
+        container.innerHTML = `
+          <div class="upgrade-name">${upg.name}</div>
+          <div class="upgrade-desc">${upg.desc}</div>
+          <div class="upgrade-cost">Cost: ${upg.cost}</div>
+          <div class="upgrade-yields">Yields: ${upg.yield}</div>
+        `;
+        container.addEventListener('click', () => {
+          if (!upg.purchased && gameState.aura >= upg.cost) {
+            gameState.aura -= upg.cost;
+            upg.purchased = true;
+            container.classList.add('upgrade-purchased');
+            upg.onPurchase();
+            updateStats();
+          }
+        });
+        return container;
+      }
+
+      function renderStage(stageKey) {
+        const stageData = gameData[stageKey];
+        // Render Generators
+        const genContainer = document.getElementById(stageKey + '-generators');
+        genContainer.innerHTML = '';
+        stageData.generators.forEach(gen => {
+          if (gen.unlocked) {
+            const genElem = createGeneratorElement(stageKey, gen);
+            genContainer.appendChild(genElem);
+          }
+        });
+        // Render Upgrades
+        const upgContainer = document.getElementById(stageKey + '-upgrades');
+        upgContainer.innerHTML = '';
+        stageData.upgrades.forEach(upg => {
+          if (upg.unlocked && !upg.purchased) {
+            const upgElem = createUpgradeElement(stageKey, upg);
+            upgContainer.appendChild(upgElem);
+          }
+        });
+      }
+
+      function updateStageVisibility() {
+        stageOrder.forEach(stage => {
+          const stageElem = document.getElementById('stage-' + stage);
+          stageElem.style.display = (stage === gameState.currentStage) ? 'block' : 'none';
+        });
+        // Create or update the advance button if not on final stage
+        const advanceContainer = document.getElementById('advance-stage-container');
+        advanceContainer.innerHTML = '';
+        const currentIndex = stageOrder.indexOf(gameState.currentStage);
+        if (currentIndex < stageOrder.length - 1) {
+          const requirement = advanceRequirements[gameState.currentStage];
+          const btn = document.createElement('button');
+          btn.id = 'advance-stage-button';
+          btn.style.fontFamily = "'Poppins', sans-serif";
+          btn.style.fontWeight = "700";
+          btn.style.fontSize = "1rem";
+          if (gameState.aura >= requirement.aura) {
+            btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Ready!`;
+            btn.disabled = false;
+            btn.addEventListener('click', () => {
+              gameState.currentStage = stageOrder[currentIndex + 1];
+              renderStage(gameState.currentStage);
+              updateStageVisibility();
+            });
+          } else {
+            btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Not Ready`;
+            btn.disabled = true;
+          }
+          advanceContainer.appendChild(btn);
+        }
+      }
+
+      function updateAdvanceButton() {
+        const currentIndex = stageOrder.indexOf(gameState.currentStage);
+        if (currentIndex < stageOrder.length - 1) {
+          const requirement = advanceRequirements[gameState.currentStage];
+          const btn = document.getElementById('advance-stage-button');
+          if (btn) {
+            if (gameState.aura >= requirement.aura) {
+              btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Ready!`;
+              btn.disabled = false;
+            } else {
+              btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Not Ready`;
+              btn.disabled = true;
+            }
+          }
+        }
+      }
+
+      function renderCurrentStage() {
+        renderStage(gameState.currentStage);
+        updateStageVisibility();
+      }
+
+      // ------------------
+      // GAME LOOP & EVENTS
+      // ------------------
+      document.getElementById('meditation-button').addEventListener('click', () => {
+        gameState.aura += gameState.auraPerClick * gameState.clickMultiplier;
+        gameState.totalClicks++;
+        updateStats();
+      });
+
+      function gameLoop() {
+        const now = Date.now();
+        const delta = (now - gameState.lastUpdate) / 1000;
+        gameState.lastUpdate = now;
+        gameState.aura += gameState.auraPerSecond * delta;
+        updateStats();
+        requestAnimationFrame(gameLoop);
+      }
+
+      // Initial Render & Start
+      renderCurrentStage();
+      updateProduction();
+      updateStats();
+      gameLoop();
+    </script>
+  </body>
+</html>
