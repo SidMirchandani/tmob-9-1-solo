@@ -1176,36 +1176,43 @@
       }
 
       function updateStageVisibility() {
-        stageOrder.forEach(stage => {
-          const stageElem = document.getElementById('stage-' + stage);
-          stageElem.style.display = (stage === gameState.currentStage) ? 'block' : 'none';
-        });
-        // Create or update the advance button if not on final stage
-        const advanceContainer = document.getElementById('advance-stage-container');
-        advanceContainer.innerHTML = '';
-        const currentIndex = stageOrder.indexOf(gameState.currentStage);
-        if (currentIndex < stageOrder.length - 1) {
-          const requirement = advanceRequirements[gameState.currentStage];
-          const btn = document.createElement('button');
-          btn.id = 'advance-stage-button';
-          btn.style.fontFamily = "'Poppins', sans-serif";
-          btn.style.fontWeight = "700";
-          btn.style.fontSize = "1rem";
-          if (gameState.aura >= requirement.aura) {
-            btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Ready!`;
-            btn.disabled = false;
-            btn.addEventListener('click', () => {
-              gameState.currentStage = stageOrder[currentIndex + 1];
-              renderStage(gameState.currentStage);
-              updateStageVisibility();
-            });
-          } else {
-            btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Not Ready`;
-            btn.disabled = true;
-          }
-          advanceContainer.appendChild(btn);
-        }
+  stageOrder.forEach(stage => {
+    const stageElem = document.getElementById('stage-' + stage);
+    stageElem.style.display = (stage === gameState.currentStage) ? 'block' : 'none';
+  });
+  // Create or update the advance button if not on final stage
+  const advanceContainer = document.getElementById('advance-stage-container');
+  advanceContainer.innerHTML = '';
+  const currentIndex = stageOrder.indexOf(gameState.currentStage);
+  if (currentIndex < stageOrder.length - 1) {
+    const requirement = advanceRequirements[gameState.currentStage];
+    const btn = document.createElement('button');
+    btn.id = 'advance-stage-button';
+    btn.style.fontFamily = "'Poppins', sans-serif";
+    btn.style.fontWeight = "700";
+    btn.style.fontSize = "1rem";
+    
+    // Always attach the event listener
+    btn.addEventListener('click', () => {
+      if (gameState.aura >= requirement.aura) {
+        gameState.currentStage = stageOrder[currentIndex + 1];
+        renderStage(gameState.currentStage);
+        updateStageVisibility();
       }
+    });
+    
+    // Set text and disabled state based on aura
+    if (gameState.aura >= requirement.aura) {
+      btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Ready!`;
+      btn.disabled = false;
+    } else {
+      btn.textContent = `Advance to Next Stage (Requires: ${requirement.aura} AURA) - Not Ready`;
+      btn.disabled = true;
+    }
+    advanceContainer.appendChild(btn);
+  }
+}
+
 
       function updateAdvanceButton() {
         const currentIndex = stageOrder.indexOf(gameState.currentStage);
